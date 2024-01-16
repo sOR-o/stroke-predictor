@@ -38,9 +38,13 @@ def predict_stroke():
 
     smoking_status = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
+    # Check if all fields are filled
+    if not (name and gender and age and ever_married and work_type and Residence_type and avg_glucose_level and bmi and smoking_status):
+        st.warning("Please fill in all the fields.")
+        return
+
     # Convert input to numeric values
     gender = 1 if gender == "Male" else 0
-
     ever_married = 1 if ever_married == "Yes" else 0
 
     work_type_mapping = {"Private": 0, "Self-employed": 1, "Govt_job": 2}
@@ -59,8 +63,9 @@ def predict_stroke():
         if prediction == 0:
             st.write('Low risk of stroke. Stay healthy!')
         else:
-            st.write(name,"High risk of stroke. Please consult with a healthcare professional.")
+            st.write(name, "High risk of stroke. Please consult with a healthcare professional.")
             st.markdown('[Visit Here](https://www.who.int/home/search-results?indexCatalogue=genericsearchindex1&searchQuery=stroke&wordsMode=AnyWord) to know more about stroke.)')
+
 
 def main():
     new_title = '<p style="font-size: 42px;">Welcome The Stroke Prediction App!</p>'
